@@ -83,3 +83,52 @@ void inserir(FILE* hash, FILE* fimFila, FILE* clientes, Cliente* valorChave){
                 // Pode incluir um printf
             }
 }
+
+void remover(FILE *hash, FILE *cliente, int chave) { 
+    int posicao, validade, posiinicial, pulo;
+     
+    // Verificar se existe um cliente com essa chave
+    Cliente *existeCliente = (Cliente*) malloc(sizeof(Cliente));
+    
+    posicao=chave % 7;
+    rewind(hash);
+    fseek(hash, sizeof(int)*posicao, SEEK_SET);
+    fread(posicao, sizeof(int), 1, hash);
+    posiinicial=posicao;
+    if(posicao != -1){
+         while(auxiliar == 0){
+            rewind(cliente);
+            fseek(clientes, sizeof(Cliente)* posicao, SEEK_SET);
+
+            fread(&existeCliente->codCliente, sizeof(int), 1, clientes);
+            fread(existeCliente->nome, sizeof(char), sizeof(existeCliente->codCliente), clientes);
+            fread(&existeCliente->status, sizeof(int), 1, clientes);
+            fread(&existeCliente->prox, sizeof(int), 1, clientes);
+
+            if(existeCliente->codCliente == chave){ 
+                auxiliar = 1;
+                existeCliente->codCliente=-1;
+                strcpy(existeCliente->nome,"-");
+                existeCliente->status=0;
+                fseek(clientes, sizeof(Cliente)*-1,SEEK_SET);
+                fwrite(&existeCliente->codCliente, sizeof(int), 1, clientes);
+                fwrite(existeCliente->nome, sizeof(char), sizeof(existeCliente->nome), clientes);
+                fwrite(&existeCliente->status, sizeof(int), 1, clientes);
+
+                printf("cliente excluido");
+                
+                
+            } else if(existeCliente->prox == -1){ /
+                auxiliar = -1;
+                prontf("cliente nao encontrado");
+            } else {
+                pos = existeCliente->prox; 
+            }
+        }
+              
+    }
+    else{
+        printf("cliente nao existe")};
+}
+
+
