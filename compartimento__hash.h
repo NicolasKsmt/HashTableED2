@@ -85,7 +85,7 @@ void inserir(FILE* hash, FILE* fimFila, FILE* clientes, Cliente* valorChave){
 }
 
 void remover(FILE *hash, FILE *cliente, int chave) { 
-    int posicao, validade, posiinicial, pulo;
+    int posicao, auxiliar, posiinicial, pulo;
      
     // Verificar se existe um cliente com essa chave
     Cliente *existeCliente = (Cliente*) malloc(sizeof(Cliente));
