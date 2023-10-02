@@ -18,7 +18,8 @@ Cliente* criarCLiente(int codCliente, char* nome){
 
 // Função para inserir um novo cliente
 void inserir(FILE* hash, FILE* fimFila, FILE* clientes, Cliente* valorChave){
-    int pos, cont;
+    int pos, cont, pulo;
+    
     
     // Verificar se existe um cliente com essa chave
     Cliente *existeCliente = (Cliente*) malloc(sizeof(Cliente));
@@ -72,11 +73,11 @@ void inserir(FILE* hash, FILE* fimFila, FILE* clientes, Cliente* valorChave){
             fwrite(&valorChave->status, sizeof(int), 1, clientes);
             if(auxiliar != 2){
                 fwrite(&valorChave->prox, sizeof(int), 1, clientes);
-                contador++;
+                cont++;
                 if(auxiliar == 0){
                     rewind(hash);
                     pulo = valorChave->codCliente % 7;// saber a posição
-                    fseek(hash, sizeof(Cliente)*pulo, SEEK_SET);//pulo
+                    fseek(hash, sizeof(int)*pulo, SEEK_SET);//pulo
                     fwrite(pos, sizeof(int), 1, hash);//reescrever o ponteiro 
                 }
                 // Pode incluir um printf
