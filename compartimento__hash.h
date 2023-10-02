@@ -69,10 +69,16 @@ void inserir(FILE* hash, FILE* fimFila, FILE* clientes, Cliente* valorChave){
             fseek(clientes, sizeof(Cliente)*pos, SEEK_SET);
             fwrite(&valorChave->codCliente, sizeof(int), 1, clientes);
             fwrite(valorChave->nome, sizeof(char), sizeof(valorChave->nome), clientes);
-            fwrite(&info->status, sizeof(int), 1, clientes);
+            fwrite(&valorChave->status, sizeof(int), 1, clientes);
             if(auxiliar != 2){
                 fwrite(&valorChave->prox, sizeof(int), 1, clientes);
                 contador++;
+                if(auxiliar == 0){
+                    rewind(hash);
+                    pulo = valorChave->codCliente % 7;// saber a posição
+                    fseek(hash, sizeof(Cliente)*pulo, SEEK_SET);//pulo
+                    fwrite(pos, sizeof(int), 1, hash);//reescrever o ponteiro 
+                }
                 // Pode incluir um printf
             }
 }
