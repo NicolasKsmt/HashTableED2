@@ -58,25 +58,21 @@ void inserir(FILE* hash, FILE* fimFila, FILE* clientes, Cliente* valorChave){
                 auxiliar = 1;
                 fseek(clientes, sizeof(int)*-1, SEEK_SET);
                 fwrite(&cont, sizeof(int), 1, clientes);
+                pos = cont; // posicao é ajustada para o final do arquivo
             } else {
                 pos = existeCliente->prox; // Recebe o ponteiro para o próximo
             }
-
+        }
+    }
             rewind(clientes);
-
+            
             fseek(clientes, sizeof(Cliente)*pos, SEEK_SET);
             fwrite(&valorChave->codCliente, sizeof(int), 1, clientes);
             fwrite(valorChave->nome, sizeof(char), sizeof(valorChave->nome), clientes);
             fwrite(&info->status, sizeof(int), 1, clientes);
-
             if(auxiliar != 2){
                 fwrite(&valorChave->prox, sizeof(int), 1, clientes);
                 contador++;
                 // Pode incluir um printf
             }
-
-        }
-
-    }
-
 }
